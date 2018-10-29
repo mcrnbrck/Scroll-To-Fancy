@@ -1,4 +1,4 @@
-# Scroll-To-Fancy
+# Scroll To Fancy
 No dependency, super simple background image parallax and scroll to reveal effects for your website.
 
 **Demo**
@@ -6,7 +6,8 @@ No dependency, super simple background image parallax and scroll to reveal effec
 
 
 ## Easy to Install
-Just add scroll-to-fancy.min.css and scroll-to-fancy.min.js to your website, then call ScrollToFancy().
+
+Just add `scroll-to-fancy.min.css` and `scroll-to-fancy.min.js` to your website, then call ScrollToFancy().
 
 ```html
 <link rel="stylesheet" href="/css/scroll-to-fancy.min.css">    
@@ -27,7 +28,8 @@ Just add scroll-to-fancy.min.css and scroll-to-fancy.min.js to your website, the
 Scroll To Fancy is written in JavaScript, has no dependencies and works in Firefox, Chrome, Safari, Edge and IE 11.
 
 ## Parallax effect for background images
-Add a parallax effect to any html element with a background image. Just add data-parallax="0.5" as an attribute to get started.
+
+Add a parallax effect to any html element with a background image. Add `data-parallax="0.5"` as an attribute to get started.
 
 ```html
 <div class="background" data-parallax="0.5"></div>
@@ -46,19 +48,21 @@ Modify the scroll speed of your parallax background image
 ```
 
 **Choose the fade in animation**
+
 Enter the name of the CSS Keyframe animation as the value of data-reveal.
 You can use the following animations or create your own:
 
-- .fadeIn
-- .fadeInLeft
-- .fadeInRight
-- .fadeInUp
-- .fadeInUpBig
-- .fadeInDown
-- .fadeInDownBig
-- .zoomIn
+- fadeIn
+- fadeInLeft
+- fadeInRight
+- fadeInUp
+- fadeInUpBig
+- fadeInDown
+- fadeInDownBig
+- zoomIn
 
 **Control the delay** (optional)
+
 Choose the delay in milliseconds when the element fades in. This comes in handy when multiple elements enter the viewport at the same time.
 
 ```html
@@ -66,5 +70,7 @@ Choose the delay in milliseconds when the element fades in. This comes in handy 
 <div class="box-2" data-reveal="fadeInUp" data-reveal-delay="800"></div>
 <div class="box-3" data-reveal="fadeInUp" data-reveal-delay="1200"></div>
 ```
+
+## Demo
 
 [View Demo](http://martinc.de/scroll-to-fancy/)
