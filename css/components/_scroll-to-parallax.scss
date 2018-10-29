@@ -1,0 +1,30 @@
+/* ==========================================================================
+   PARALLAX SCROLLING
+   ========================================================================== 
+*/
+
+[data-parallax] {
+  background-position: center;
+  background-size: cover;
+  background-repeat: repeat-y;
+
+  &:not(.has-parallax) {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+}
+
+
+@media screen {
+
+  body.scroll-to-parallax {
+
+    [data-parallax] {
+
+    }
+
+    [data-parallax].has-parallax {
+
+    }
+  }
+}

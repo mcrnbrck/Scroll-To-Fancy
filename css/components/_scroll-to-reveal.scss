@@ -1,0 +1,61 @@
+/* ==========================================================================
+   SCROLL TO REVEAL
+   ========================================================================== 
+  
+    animations defined in /components/_animations.scss
+*/
+
+$animationDuration:   0.75s;
+$animationDelay:      0.3s;
+
+@media screen {
+
+  body.scroll-to-reveal {
+    // overflow-x: hidden;
+
+    [data-reveal] {
+      transform: translate(0, 0);
+      animation-duration: $animationDuration;
+      animation-delay: $animationDelay;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
+    }
+
+    // hides scroll-to-reveal elements by default
+    [data-reveal].scroll-to-reveal-hide {
+      opacity: 0;
+    }
+  }
+}
+
+.fadeIn {
+  @extend %fadeIn;
+}
+
+.fadeInLeft {
+  @extend %fadeInLeft;
+}
+
+.fadeInRight {
+  @extend %fadeInRight;
+}
+
+.fadeInUp {
+  @extend %fadeInUp;
+}
+
+.fadeInUpBig {
+  @extend %fadeInUpBig;
+}
+
+.fadeInDown {
+  @extend %fadeInDown;
+}
+
+.fadeInDownBig {
+  @extend %fadeInDownBig;
+}
+
+.zoomIn {
+  @extend %zoomIn;
+}

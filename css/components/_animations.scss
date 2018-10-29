@@ -1,0 +1,158 @@
+/* ==========================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================== 
+*/
+
+/* reveal - fade in */
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+%fadeIn {
+  animation-name: fadeIn;
+}
+
+
+/* reveal - fade in left */
+@keyframes fadeInLeft {
+
+  from {
+    opacity: 0;
+    transform: translate3d(-60px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+%fadeInLeft {
+  animation-name: fadeInLeft;
+}
+
+
+/* reveal - fade in right */
+@keyframes fadeInRight {
+
+  from {
+    opacity: 0;
+    transform: translate3d(60px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+%fadeInRight {
+  animation-name: fadeInRight;
+}
+
+
+/* reveal - fade in up */
+@keyframes fadeInUp {
+
+  0% {
+    opacity: 0;
+    transform: translate(0, 40px);
+  }
+
+  //   20% {
+  //     opacity: 0;
+  //   }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+%fadeInUp {
+  animation-name: fadeInUp;
+}
+
+
+/* reveal - fade in up big */
+@keyframes fadeInUpBig {
+
+  from {
+    opacity: 0;
+    transform: translate(0, -140px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+%fadeInUpBig {
+  animation-name: fadeInUpBig;
+}
+
+
+/* reveal - fade in down */
+@keyframes fadeInDown {
+
+  from {
+    opacity: 0;
+    transform: translate(0, -40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+%fadeInDown {
+  animation-name: fadeInDown;
+}
+
+
+/* reveal - fade in down big */
+@keyframes fadeInDownBig {
+
+  from {
+    opacity: 0;
+    transform: translate(0, 140px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+%fadeInDownBig {
+  animation-name: fadeInDownBig;
+}
+
+
+
+/* reveal - zoom in */
+@keyframes zoomIn {
+
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+
+%zoomIn {
+  animation-name: zoomIn;
+}
