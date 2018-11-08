@@ -7,7 +7,7 @@ No dependency, super simple background image parallax and scroll to reveal effec
 
 ## Easy to Install
 
-Just add `scroll-to-fancy.min.css` and `scroll-to-fancy.min.js` to your website, then call ScrollToFancy().
+Just add `scroll-to-fancy.min.css` and `scroll-to-fancy.min.js` to your website, then call `ScrollToFancy().`
 
 ```html
 <link rel="stylesheet" href="/css/scroll-to-fancy.min.css">    
@@ -35,7 +35,7 @@ Add a parallax effect to any html element with a background image. Add `data-par
 <div class="background" data-parallax="0.5"></div>
 ```
 
-Modify the scroll speed of your parallax background image
+**Modify the scroll speed of your parallax background image**
 
 - 0.9 = almost same speed as user scrolls (fast)
 - 0.5 = half of the scroll speed
