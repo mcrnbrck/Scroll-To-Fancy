@@ -29,13 +29,19 @@ Scroll To Fancy is written in JavaScript, has no dependencies and works in Firef
 
 ## Parallax effect for background images
 
-Add a parallax effect to any html element with a background image. Add `data-parallax="0.5"` as an attribute to get started.
+Add a parallax effect to any html element with a background image. Add `data-parallax-bg="0.5"` as an attribute to get started.
 
 ```html
-<div class="background" data-parallax="0.5"></div>
+<div class="background" data-parallax-bg="0.5"></div>
 ```
 
-**Modify the scroll speed of your parallax background image**
+You can use `data-parallax="0.5"` to animate an the vertical position of an element. When the element enters the viewport, it is animated by applying a translate(x, y) css transform. 
+
+```html
+<div class="element" data-parallax="0.5"></div>
+```
+
+**Modify the scroll speed of your parallax element**
 
 - 0.9 = almost same speed as user scrolls (fast)
 - 0.5 = half of the scroll speed

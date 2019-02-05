@@ -80,7 +80,7 @@ var ScrollToFancy = function(Options) {
       for (var i=0; i<animationElems.length; i++) {
         var item = animationElems[i];
 
-        item.classList.add('scroll-to-reveal-hide');  
+        item.classList.add('scroll-to-reveal-hide');
 
         // save element
         triggers.push({
@@ -121,16 +121,13 @@ var ScrollToFancy = function(Options) {
           item.element.classList.add( item.animation );
           triggers[i].revealed = true;
         }
-      };
-      
-      // todo remove item from triggers?
-
+      }
     } // playAnimation()
 
 
     assignAnimationTriggers();
     playAnimation();
-   
+
     // get and save animation triggers on resize
     window.addEventListener('resize', function() {
       window.requestAnimationFrame( assignAnimationTriggers );
@@ -152,7 +149,7 @@ var ScrollToFancy = function(Options) {
   ************************************************************/
   function _assignParallaxScrolling() {
     var classEnabled    = 'scroll-to-parallax';
-    var elems           = document.querySelectorAll('[data-parallax]');
+    var elems           = document.querySelectorAll('[data-parallax], [data-parallax-bg]');
     var scrollModifier  = 0.5; /* (slow) 0.01, 0.99 (fast) */
     var triggers        = [];
 
@@ -177,7 +174,14 @@ var ScrollToFancy = function(Options) {
           var item = elems[i];
 
           item.classList.remove('has-parallax');
-          item.style.backgroundPosition = '';
+
+          if (item.hasAttribute('data-parallax')) {
+            item.style.transform = '';
+          }
+
+          if (item.hasAttribute('data-parallax-bg')) {
+            item.style.backgroundPosition = '';
+          }
         };
 
         return false;
@@ -189,14 +193,30 @@ var ScrollToFancy = function(Options) {
 
         item.classList.add('has-parallax');
 
-        // get scroll speed modifier from element (use global scroll speed modifier as a fallback)
-        if (isNaN(scrollSpeed = parseFloat(item.getAttribute('data-parallax')))) {
+        // get scroll speed modifier from element
+        switch (true) {
+
+          case item.hasAttribute('data-parallax'):
+            scrollSpeed = parseFloat(item.getAttribute('data-parallax'))
+            break;
+
+          case item.hasAttribute('data-parallax-bg'):
+            scrollSpeed = parseFloat(item.getAttribute('data-parallax-bg'))
+            break;
+
+          default:
+            scrollSpeed = scrollModifier;
+        }
+
+        // use global scroll speed modifier as a fallback if scroll speed is invalid or undefinied
+        if (isNaN(scrollSpeed)) {
           scrollSpeed = scrollModifier;
         }
 
         // save elements
         triggers.push({
           element:      item,
+          isBackground: (item.hasAttribute('data-parallax-bg') ? true : false),
           offset:       Math.round( item.getBoundingClientRect().top + document.documentElement.scrollTop ),
           height:       item.offsetHeight,
           position:     (item.hasAttribute('data-parrallax-position') ? item.getAttribute('data-parrallax-position') : 'center'),
@@ -226,8 +246,14 @@ var ScrollToFancy = function(Options) {
         if ((window.innerHeight + _scrollDistance) > item.offset && _scrollDistance < (item.offset + item.height)) {
           // calculate vertical position
           var y = (_scrollDistance - item.offset) * item.speed;
-          // set background position
-          item.element.style.backgroundPosition = 'center ' + y + 'px';
+
+          if (item.isBackground === true) {
+            // set vertical background image position
+            item.element.style.backgroundPosition = 'center ' + y + 'px';
+          } else {
+            // set vertical translate position
+            item.element.style.transform = 'translate(0, ' + y + 'px)';
+          }
         }
       }
     } // playAnimation()
