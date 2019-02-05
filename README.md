@@ -35,7 +35,7 @@ Add a parallax effect to any html element with a background image. Add `data-par
 <div class="background" data-parallax-bg="0.5"></div>
 ```
 
-You can use `data-parallax="0.5"` to animate an the vertical position of an element. When the element enters the viewport, it is animated by applying a translate(x, y) css transform. 
+You can use `data-parallax="0.5"` to animate an the vertical position of an element. When the element enters the viewport, it is animated by applying a translate(0, y) css transform. 
 
 ```html
 <div class="element" data-parallax="0.5"></div>
