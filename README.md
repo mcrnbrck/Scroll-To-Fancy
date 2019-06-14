@@ -1,5 +1,5 @@
 # Scroll To Fancy
-No dependency, super simple background image parallax and scroll to reveal effects for your website.
+No dependency, super simple background image parallax and scroll to reveal effects for your website. v1.1
 
 **Demo**
 [martinc.de/scroll-to-fancy](http://martinc.de/scroll-to-fancy/)
