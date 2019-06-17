@@ -4,9 +4,11 @@ var ScrollToFancy = function(Options) {
     parallaxMinWidth:       800,
     scrollToReveal:         true,
     scrollToRevealMinWidth: 800,
-    scrollToRevealOffset:   140
+    scrollToRevealOffset:   140,
+    autoUpdateInterval:     1500
   };
   var _scrollDistance = 0;
+  var _documentHeight = document.body.offsetHeight;
 
 
   /************************************************************
@@ -35,11 +37,21 @@ var ScrollToFancy = function(Options) {
       _settings.scrollToRevealOffset = Options.scrollToRevealOffset;
     }
 
+    if ('autoUpdateInterval' in Options && typeof(Options.autoUpdateInterval) === 'number') {
+      _settings.autoUpdateInterval = Options.autoUpdateInterval;
+    }
+
+    // update global scroll distance on scroll
     window.addEventListener('scroll', function() {
       window.requestAnimationFrame( function() {
         _scrollDistance = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop;
       });
     });
+
+    // auto update document height
+    window.setInterval(function() {
+      _documentHeight = document.body.offsetHeight;
+    }, 300);
 
     if (_settings.parallax === true) {
       _assignParallaxScrolling();
@@ -61,6 +73,8 @@ var ScrollToFancy = function(Options) {
     var animationWrapperElem  = document.body;
     var animationElems        = document.querySelectorAll('[data-reveal]:not(.scroll-to-reveal-hide)');
     var triggers              = [];
+    var triggerChecker        = null;
+    var lastDocumentHeight    = _documentHeight;
 
 
     /************************************************************
@@ -90,11 +104,41 @@ var ScrollToFancy = function(Options) {
           animation:  item.getAttribute('data-reveal'),
           delay:      parseInt( item.getAttribute('data-reveal-delay') )
         });
+      }
+    } // END assignAnimationTriggers()
 
+
+    /************************************************************
+    FUNCTION: autoUpdateAnimationTriggers()
+    DESC:     update trigger points for animations  if the height of the document changes
+    ************************************************************/
+    var autoUpdateAnimationTriggers = function() {
+
+      if (triggerChecker != null) {
+        clearInterval(triggerChecker);
       }
 
-      // console.log(animationElems);
-    } // END assignAnimationTriggers()
+      // start interval
+      triggerChecker = setInterval(function() {
+
+        // if the document height changes, recalc the offset and height of our parallax items
+        if (lastDocumentHeight != _documentHeight) {
+          lastDocumentHeight = _documentHeight;
+          
+          // check the saved offest and current offset for each parallax item, update it if it is different!
+          for (var i=0; i<triggers.length; i++) {
+            var item = triggers[i].element;
+            var currentOffset = Math.round( item.getBoundingClientRect().top + document.documentElement.scrollTop );
+
+            if (triggers[i].offset != currentOffset && triggers[i].revealed === false) {
+
+              // update item
+              triggers[i].offset = currentOffset;
+            }
+          }
+        } 
+      }, _settings.autoUpdateInterval); /* 1.5 sec by default */
+    } //END autoUpdateAnimationTriggers()
 
 
     /************************************************************
@@ -126,11 +170,11 @@ var ScrollToFancy = function(Options) {
 
 
     assignAnimationTriggers();
+    autoUpdateAnimationTriggers();
     playAnimation();
 
     // get and save animation triggers on resize
     window.addEventListener('resize', function() {
-      window.requestAnimationFrame( assignAnimationTriggers );
       window.requestAnimationFrame( playAnimation );
     });
 
@@ -138,6 +182,7 @@ var ScrollToFancy = function(Options) {
     window.addEventListener('scroll', function() {
       window.requestAnimationFrame( playAnimation );
     });
+
   } // _assignScrollToReveal()
 
 
@@ -148,10 +193,12 @@ var ScrollToFancy = function(Options) {
   DESC:     assigns hero image parallax scrolling
   ************************************************************/
   function _assignParallaxScrolling() {
-    var classEnabled    = 'scroll-to-parallax';
-    var elems           = document.querySelectorAll('[data-parallax], [data-parallax-bg]');
-    var scrollModifier  = 0.5; /* (slow) 0.01, 0.99 (fast) */
-    var triggers        = [];
+    var classEnabled        = 'scroll-to-parallax';
+    var elems               = document.querySelectorAll('[data-parallax], [data-parallax-bg]');
+    var scrollModifier      = 0.5; /* (slow) 0.01, 0.99 (fast) */
+    var triggers            = [];
+    var triggerChecker      = null;
+    var lastDocumentHeight  = _documentHeight;
 
     if (!elems) {
       return false;
@@ -227,6 +274,40 @@ var ScrollToFancy = function(Options) {
 
 
     /************************************************************
+    FUNCTION: autoUpdateElementTriggers()
+    DESC:     update trigger points for parallax elements if the height of the document changes
+    ************************************************************/
+    var autoUpdateElementTriggers = function() {
+
+      if (triggerChecker != null) {
+        clearInterval(triggerChecker);
+      }
+
+      // start interval
+      triggerChecker = setInterval(function() {
+
+        // if the document height changes, recalc the offset and height of our parallax items
+        if (lastDocumentHeight != _documentHeight) {
+          lastDocumentHeight = _documentHeight;
+
+          // check the saved offest and current offset for each parallax item, update it if it is different!
+          for (var i=0; i<triggers.length; i++) {
+            var item = triggers[i].element;
+            var currentOffset = Math.round( item.getBoundingClientRect().top + document.documentElement.scrollTop );
+
+            if (triggers[i].offset != currentOffset) {
+
+              // update item
+              triggers[i].offset = currentOffset;
+              triggers[i].height = item.offsetHeight;
+            }
+          }
+        } 
+      }, _settings.autoUpdateInterval); /* 1.5 sec by default */
+    } //END autoUpdateElementTriggers()
+
+
+    /************************************************************
     FUNCTION: playAnimation()
     DESC:     check if element is in viewport and animate background
     ************************************************************/
@@ -260,19 +341,18 @@ var ScrollToFancy = function(Options) {
 
 
     getElementTriggers();
+    autoUpdateElementTriggers();
     playAnimation();
 
     // get and save element positions on resize
     window.addEventListener('resize', function() {
-      window.requestAnimationFrame( getElementTriggers );
       window.requestAnimationFrame( playAnimation );
     });
 
-    // play parallax animation on scroll
+    // get and save element positions on scroll
     window.addEventListener('scroll', function() {
       window.requestAnimationFrame( playAnimation );
     });
-
   } //END _assignParallaxScrolling()
 
 
