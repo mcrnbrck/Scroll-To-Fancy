@@ -1,0 +1,93 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <title>Scroll to Fancy | Demo</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="demo.css">
+  <link rel="stylesheet" href="../css/scroll-to-fancy.min.css">
+  <style></style>
+</head>
+
+<body>
+
+  <h1>Scroll to Fancy | Test</h1>
+  <p>Debug glitches that occur when content on a page dynamically changes</p>
+
+  <div class="gap anomaly-0">gets removed with js</div>
+
+  <div class="gap gap-island" data-parallax-bg="0.5"></div>
+      
+  <div class="gap anomaly-1">no image, just text</div>
+
+  <p data-reveal="fadeInLeft">Scroll to reveal me</p>
+
+  <div class="gap gap-jungle" data-parallax-bg="0.5"></div>
+
+  <div class="gap gap-ocean" data-parallax-bg="0.5"></div>
+      
+  <div class="gap anomaly-2">~_~</div>
+
+  <div class="gap gap-mountain" data-parallax-bg="0.5"></div>
+
+  <div class="gap gap-desert" data-parallax-bg="0.5"></div>
+
+  <p data-reveal="fadeInLeft">Scroll to reveal me</p>
+
+  <!-- <script src="js/vendor/modernizr-3.7.1.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script> -->
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>  
+  <script src="../js/scroll-to-fancy.js"></script>
+  <script>
+
+    ScrollToFancy({
+      // optional settings
+      parallax:               true,
+      parallaxMinWidth:       800,
+      scrollToReveal:         true,
+      scrollToRevealMinWidth: 800,
+      scrollToRevealOffset:   140
+    });
+
+    /* simulate page changes, that causes the height of the page to change */
+    function assignEvents() {
+      let elem1 = $('.anomaly-1');
+      let elem2 = $('.anomaly-2');
+
+      // hide the thin, first elem
+      setTimeout(function() {
+        $('.anomaly-0').hide();
+      }, 1000)
+
+      // animate height, first elem
+      setInterval(function(e) {
+        let newHeight = parseInt(Math.random() * 500);
+        elem1.animate({
+          height: newHeight
+        }, {
+          duration: 1000
+        });
+      }, 3000); 
+
+      // animate height, second elem
+      setInterval(function(e) {
+        let newHeight = parseInt(Math.random() * 700);
+        elem2.animate({
+          height: newHeight
+        }, {
+          duration: 2000
+        });
+      }, 7000); 
+    } //END assignEvents()
+
+    $(document).ready(function() {
+     // assignEvents();
+    })
+  </script>
+
+</body>
+</html>
